@@ -16,7 +16,7 @@ export class ProjectsService {
         try {
             return await this.projectModel.find()
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -26,7 +26,7 @@ export class ProjectsService {
             const project = new this.projectModel(newProject)
             return await project.save()
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -35,7 +35,7 @@ export class ProjectsService {
         try {
             return await this.projectModel.findById(id)
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -44,7 +44,7 @@ export class ProjectsService {
         try {
             return await this.projectModel.findByIdAndDelete(id)
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -53,7 +53,7 @@ export class ProjectsService {
         try {
             return await this.projectModel.findByIdAndUpdate(id, project)
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 }

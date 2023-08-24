@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/user.schema';
 import { Model } from 'mongoose';
@@ -23,7 +23,7 @@ export class UsersService {
             }
             return users
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -33,7 +33,10 @@ export class UsersService {
             const user = new this.userModel(newUser)
             return await user.save()
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            if (err.name == 'MongoServerError' && err.code == 11000) {
+                throw new ConflictException('This user already exists.')
+            } else
+                throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -44,7 +47,7 @@ export class UsersService {
             // if (!user) throw new ErrorManager({ type: 'BAD_REQUEST', message: "Is not found." })
             return user
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -53,7 +56,7 @@ export class UsersService {
         try {
             return await this.userModel.findByIdAndDelete(id)
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
@@ -62,7 +65,7 @@ export class UsersService {
         try {
             return await this.userModel.findByIdAndUpdate(id, user)
         } catch (err) {
-            throw new ErrorManager.createSignatureError(err.message)
+            throw ErrorManager.createSignatureError(err.message)
         }
     }
 
