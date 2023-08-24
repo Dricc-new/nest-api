@@ -29,7 +29,4 @@ export class UpdateUserDTO {
     @IsOptional()
     role?: string
 
-    @IsString()
-    @IsOptional()
-    projects_include?: string
 }

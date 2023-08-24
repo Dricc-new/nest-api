@@ -24,7 +24,4 @@ export class CreateUserDTO {
 
     @IsString()
     role: string
-
-    @IsString()
-    projects_include: string
 }
