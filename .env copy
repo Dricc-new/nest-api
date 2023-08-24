@@ -1,3 +1,0 @@
-PORT=8085
-
-MONGO_HOST=mongodb://localhost:27017
